@@ -15,7 +15,7 @@ const Button = ({ loading = false, children, className, type = 'button', ...prop
   return (
     <button
       type={type}
-      className={`inline-flex items-center justify-center px-4 py-2 border border-transparent font-bold rounded-md shadow-sm text-white bg-blue-500 hover:bg-blue-600 focus:outline-none ${className}`}
+      className={`inline-flex items-center justify-center px-4 py-2 border border-transparent font-bold rounded-md shadow-sm text-white bg-blue-500 hover:bg-blue-600 focus:outline-none ${className} disabled:bg-blue-200`}
       onClick={handleClick}
       disabled={loading}
       {...props}

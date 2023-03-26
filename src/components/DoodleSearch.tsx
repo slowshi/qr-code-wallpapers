@@ -58,7 +58,7 @@ const DoodleSearch = ({ onSubmit }: DoodleProps) => {
           onChange={handleInputChange}
           className="border border-gray-400 p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-full"
         />
-        <Button type="submit" loading={loading}>
+        <Button type="submit" loading={loading} disabled={inputValue === ''}>
           Submit
         </Button>
       </div>
