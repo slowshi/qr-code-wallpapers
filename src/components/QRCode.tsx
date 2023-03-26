@@ -56,7 +56,7 @@ function QRCode({ options, onRawData }: Props) {
 
         const svgDataURL = svg64(svgClone)
         resolve(svgDataURL)
-      }, 1000)
+      }, 333)
     })
   }
   const loadRawData = async (options: QRCodeStylingOptions) => {
