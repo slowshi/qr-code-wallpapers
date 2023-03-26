@@ -1,20 +1,15 @@
-import { TwitterPicker, ColorChangeHandler, RGBColor, ColorResult } from 'react-color'
-import { useEffect, useState } from 'react'
+import { TwitterPicker, ColorChangeHandler, ColorResult } from 'react-color'
+import { useState } from 'react'
 import { palette } from '@/constants'
+
 interface Props {
   color: string
   onChange: (color: ColorResult) => void
+  disabled?: boolean
 }
-function ColorPickerInput({ onChange, color }: Props) {
-  const [displayPicker, setDisplayPicker] = useState(false)
-  // const [colorPickerStyle, setColorPickerStyle] = useState('rgba(241,112,19,1)')
 
-  // useEffect(() => {
-  //   if (color) {
-  //     const { r, g, b, a } = color
-  //     setColorPickerStyle(`rgba(${r}, ${g}, ${b}, ${a})`)
-  //   }
-  // }, [color])
+function ColorPickerInput({ color, onChange, disabled = false }: Props) {
+  const [displayPicker, setDisplayPicker] = useState(false)
 
   const handleClick = () => {
     setDisplayPicker(!displayPicker)
@@ -28,6 +23,11 @@ function ColorPickerInput({ onChange, color }: Props) {
     onChange(color)
   }
 
+  const colorPickerClasses = `p-2 border border-gray-400 bg-white rounded-lg shadow-sm inline-block cursor-pointer ${
+    disabled ? 'opacity-50 bg-gray-300 pointer-events-none' : ''
+  }`
+  const colorPickerBoxClasses = `w-9 h-4 rounded-sm bg-color`
+
   return (
     <div>
       <style jsx>{`
@@ -35,11 +35,8 @@ function ColorPickerInput({ onChange, color }: Props) {
           background-color: ${color};
         }
       `}</style>
-      <div
-        className="p-2 border border-gray-400 bg-white rounded-lg shadow-sm inline-block cursor-pointer"
-        onClick={handleClick}
-      >
-        <div className="w-9 h-4 rounded-sm bg-color" />
+      <div className={colorPickerClasses} onClick={handleClick}>
+        <div className={colorPickerBoxClasses} />
       </div>
       {displayPicker ? (
         <div className="absolute z-10">

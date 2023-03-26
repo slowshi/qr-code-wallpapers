@@ -68,3 +68,15 @@ export const defaultStyling: QRCodeStylingOptions = {
   dotsOptions: { type: 'classy-rounded', color: '#000000' },
   backgroundOptions: { color: '#00000000' },
 }
+export interface DoodleAttribute {
+  trait_type: string
+  value: string
+}
+export interface DoodleMetadata {
+  image: string
+  name: string
+  description: string
+  attributes: DoodleAttribute[]
+}
+export const IPFS_URL = 'https://wcnft.mypinata.cloud/ipfs'
+export const DOODLE_METADATA_URL = `${IPFS_URL}/QmPMc4tcBsMqLRuCQtPmPe84bpSjrC3Ky7t3JWuHXYB4aS`
