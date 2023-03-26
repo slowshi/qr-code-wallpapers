@@ -50,12 +50,14 @@ function QRCode({ options, onRawData }: Props) {
               foreignObjectElement.appendChild(imageElementInsideForeignObject)
               imageElement.parentNode?.replaceChild(foreignObjectElement, imageElement)
             }
+            const svgDataURL = svg64(svgClone)
+            resolve(svgDataURL)
           }
           img.src = imageSrc
+        } else {
+          const svgDataURL = svg64(svgClone)
+          resolve(svgDataURL)
         }
-
-        const svgDataURL = svg64(svgClone)
-        resolve(svgDataURL)
       }, 333)
     })
   }

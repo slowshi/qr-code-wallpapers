@@ -159,37 +159,32 @@ export default function Home() {
                   </div>
                 </li>
                 <li className="px-6 py-3">
-                  <div className="flex justify-between">
-                    <div className="w-1/2">
-                      <h3 className="text-lg font-bold mb-2">Dots</h3>
-                      <div className="p-4">
-                        <label htmlFor="dot-color-picker">Color</label>
-                        <ColorPickerInput color={dotColor} onChange={colorHandler} />
-                      </div>
-                    </div>
-                    <div className="w-1/2">
-                      <h3 className="text-lg font-bold mb-2">Background</h3>
-                      <div className="p-4">
-                        <div className="mb-2">
-                          <label htmlFor="background-color-picker">Color</label>
-                          <ColorPickerInput color={backgroundColor} onChange={backgroundColorHandler} />
-                          <label htmlFor="background-gradient">Gradient</label>
-                          <div className="flex">
-                            <div className="mr-2">
-                              <ColorPickerInput
-                                disabled={!backgroundGrardient}
-                                color={backgroundColorTo}
-                                onChange={backgroundColorToHandler}
-                              />
-                            </div>
-                            <Switch
-                              className="m-2"
-                              id="bg-gradient"
-                              onChange={grandientHandler}
-                              checked={backgroundGrardient}
-                            ></Switch>
-                          </div>
-                        </div>
+                  <h3 className="text-lg font-bold mb-2">Dots</h3>
+                  <div className="p-4">
+                    <label htmlFor="dot-color-picker">Color</label>
+                    <ColorPickerInput color={dotColor} onChange={colorHandler} />
+                  </div>
+                </li>
+                <li className="px-6 py-3">
+                  <h3 className="text-lg font-bold mb-2">Background</h3>
+                  <div className="p-4">
+                    <div className="mb-2">
+                      <label htmlFor="background-color-picker">Color</label>
+                      <ColorPickerInput color={backgroundColor} onChange={backgroundColorHandler} />
+                      <label htmlFor="background-gradient">Gradient</label>
+                      <div className="flex items-center">
+                        <ColorPickerInput
+                          disabled={!backgroundGrardient}
+                          color={backgroundColorTo}
+                          onChange={backgroundColorToHandler}
+                        />
+                        <input
+                          id="myCheckbox"
+                          type="checkbox"
+                          className="w-6 h-6 rounded-full border-gray-40 mb-1 ml-2"
+                          onChange={grandientHandler}
+                          checked={backgroundGrardient}
+                        />
                       </div>
                     </div>
                   </div>
