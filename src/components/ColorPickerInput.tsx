@@ -42,7 +42,7 @@ function ColorPickerInput({ color, onChange, disabled = false }: Props) {
         <div className="absolute z-10">
           <div className="fixed top-0 right-0 bottom-0 left-0" onClick={handleClose} />
           <TwitterPicker
-            colors={[...Object.values(palette), '#FFFFFF', '#000000']}
+            colors={[...Object.values(palette), '#FFFFFF', '#424242']}
             color={color}
             onChange={handleChange}
           />

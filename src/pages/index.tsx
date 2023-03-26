@@ -17,11 +17,12 @@ export default function Home() {
   const [bgURL, setBgURL] = useState('')
   const [imageUrl, setImageUrl] = useState('')
   const [url, setUrl] = useState('https://doodles.app')
-  const [dotColor, setDotColor] = useState('#000000')
+  const [dotColor, setDotColor] = useState('#424242')
   const [backgroundColor, setBackgroundColor] = useState('#FFFFFF')
   const [backgroundColorTo, setBackgroundColorTo] = useState('#FFFFFF')
   const [backgroundGrardient, setBackgroundGradient] = useState(false)
   const [options, setOptions] = useState<QRCodeStylingOptions>(defaultStyling)
+  const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | null>(null)
 
   const colorHandler = (color: ColorResult) => {
     setDotColor(color.hex)
@@ -52,10 +53,21 @@ export default function Home() {
   const urlHandler = (e: ChangeEvent<HTMLInputElement>) => {
     const url = e.target.value
     setUrl(url)
-    setOptions({
-      ...options,
-      data: url,
-    })
+
+    if (timeoutId) {
+      clearTimeout(timeoutId)
+    }
+
+    const newTimeoutId = setTimeout(() => {
+      if (url !== '') {
+        setOptions({
+          ...options,
+          data: url,
+        })
+      }
+    }, 1000)
+
+    setTimeoutId(newTimeoutId)
   }
   const imageHandler = (value: string) => {
     setImageUrl(value)
@@ -182,31 +194,6 @@ export default function Home() {
                     </div>
                   </div>
                 </li>
-                {/* <li className="px-6 py-3">
-                  <h3 className="text-lg font-bold mb-2">Background</h3>
-                  <div className="p-4">
-                    <div className="mb-2">
-                      <label htmlFor="background-color-picker">Color</label>
-                      <ColorPickerInput color={backgroundColor} onChange={backgroundColorHandler} />
-                      <label htmlFor="background-gradient">Gradient</label>
-                      <div className="flex">
-                        <div className="mr-2">
-                          <ColorPickerInput
-                            disabled={!backgroundGrardient}
-                            color={backgroundColorTo}
-                            onChange={backgroundColorToHandler}
-                          />
-                        </div>
-                        <Switch
-                          className="m-2"
-                          id="bg-gradient"
-                          onChange={grandientHandler}
-                          checked={backgroundGrardient}
-                        ></Switch>
-                      </div>
-                    </div>
-                  </div>
-                </li> */}
               </ul>
             </div>
           </div>
