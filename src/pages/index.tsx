@@ -60,27 +60,27 @@ export default function Home() {
     link.click()
   }
 
-  const getRawData = (value: Blob) => {
-    if (value !== null) {
-      const canvas = document.createElement('canvas')
-      canvas.width = 390 * 4
-      canvas.height = 844 * 4
-      const context = canvas.getContext('2d')
+  const getRawData = (value: string) => {
+    // if (value !== null) {
+    const canvas = document.createElement('canvas')
+    canvas.width = 390 * 4
+    canvas.height = 844 * 4
+    const context = canvas.getContext('2d')
 
-      const img = new Image()
-      img.onload = () => {
-        if (context) {
-          context.fillStyle = backgroundColor
-          context.fillRect(0, 0, canvas.width, canvas.height)
-          const x = (canvas.width - img.width) / 2
-          const y = (canvas.height - img.height) / 2 + 150
-          context.drawImage(img, x, y)
-          setBgURL(canvas.toDataURL())
-        }
+    const img = new Image()
+    img.onload = () => {
+      if (context) {
+        context.fillStyle = backgroundColor
+        context.fillRect(0, 0, canvas.width, canvas.height)
+        const x = (canvas.width - img.width) / 2
+        const y = (canvas.height - img.height) / 2 + 150
+        context.drawImage(img, x, y)
+        setBgURL(canvas.toDataURL())
       }
-
-      img.src = URL.createObjectURL(value)
     }
+
+    img.src = value
+    // }
   }
 
   return (
@@ -114,7 +114,7 @@ export default function Home() {
                   </div>
                 </details>
 
-                <details className="border border-gray-300 rounded-md mb-2" open>
+                <details className="border border-gray-300 rounded-md mb-2">
                   <summary className="bg-gray-200 px-4 py-2 cursor-pointer">Dots</summary>
                   <div className="p-4">
                     <label htmlFor="dot-color-picker">Color</label>
@@ -122,7 +122,7 @@ export default function Home() {
                   </div>
                 </details>
 
-                <details className="border border-gray-300 rounded-md mb-2" open>
+                <details className="border border-gray-300 rounded-md mb-2">
                   <summary className="bg-gray-200 px-4 py-2 cursor-pointer">Background</summary>
                   <div className="p-4">
                     <div className="mb-2">

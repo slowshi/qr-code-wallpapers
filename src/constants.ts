@@ -58,8 +58,8 @@ export const palette: { [key: string]: string } = {
   PINK_300: '#FFA4D4',
 }
 export const defaultStyling: QRCodeStylingOptions = {
-  width: 300,
-  height: 300,
+  width: 1200,
+  height: 1200,
   data: 'https://www.doodles.app',
   margin: 0,
   type: 'svg',
