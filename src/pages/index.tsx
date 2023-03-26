@@ -5,7 +5,6 @@ import { ColorResult } from 'react-color'
 import ColorPickerInput from '@/components/ColorPickerInput'
 import { Options as QRCodeStylingOptions } from 'qr-code-styling'
 import ImageLoaderInput from '@/components/ImageLoaderInput'
-import Switch from '@/components/Switch'
 import DoodleSearch from '@/components/DoodleSearch'
 import Button from '@/components/Button'
 
@@ -69,7 +68,7 @@ export default function Home() {
 
     setTimeoutId(newTimeoutId)
   }
-  const imageHandler = (value: string) => {
+  const imageHandler = async (value: string) => {
     setImageUrl(value)
     setOptions({
       ...options,
@@ -98,7 +97,8 @@ export default function Home() {
     }
     setBackgroundGradient(!backgroundGrardient)
   }
-  const getRawData = (value: string) => {
+  const getRawData = (value: Blob | null) => {
+    if (value === null) return
     const canvas = document.createElement('canvas')
     canvas.width = 390 * 4
     canvas.height = 844 * 4
@@ -119,7 +119,7 @@ export default function Home() {
       }
     }
 
-    img.src = value
+    img.src = URL.createObjectURL(value)
   }
   return (
     <div className="w-screen h-screen flex justify-center">

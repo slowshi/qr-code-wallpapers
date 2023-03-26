@@ -62,7 +62,7 @@ export const defaultStyling: QRCodeStylingOptions = {
   height: 1200,
   data: 'https://www.doodles.app',
   margin: 0,
-  type: 'svg',
+  // type: 'svg',
   qrOptions: { typeNumber: 4, mode: 'Byte', errorCorrectionLevel: 'L' },
   imageOptions: { hideBackgroundDots: true, imageSize: 1, margin: 3, crossOrigin: 'anonymous' },
   dotsOptions: { type: 'classy-rounded', color: '#424242' },

@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from 'react'
 import QRCodeStyling, { Options as QRCodeStylingOptions } from 'qr-code-styling'
-import { svg64 } from 'svg64'
+
 interface Props {
   options: QRCodeStylingOptions
-  onRawData?: (value: string) => void
+  onRawData?: (value: Blob | null) => void
 }
 const useQRCodeStyling = (options: QRCodeStylingOptions): QRCodeStyling | null => {
   const [qrCodeStyling, setQRCodeStyling] = useState<QRCodeStyling | null>(null)
@@ -25,53 +25,17 @@ function QRCode({ options, onRawData }: Props) {
   const ref = useRef<HTMLDivElement>(null)
   const qrCode = useQRCodeStyling(options)
 
-  const updateForeignObjects = (svg: SVGElement): Promise<string> => {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        const svgClone = svg.cloneNode(true) as SVGElement
-
-        // Find the image element in the original SVG
-        const imageElement = svgClone.querySelector('image')
-        if (imageElement) {
-          const foreignObjectElement = document.createElementNS('http://www.w3.org/2000/svg', 'foreignObject')
-          foreignObjectElement.setAttribute('width', imageElement.getAttribute('width')!)
-          foreignObjectElement.setAttribute('height', imageElement.getAttribute('height')!)
-          foreignObjectElement.setAttribute('x', imageElement.getAttribute('x')!)
-          foreignObjectElement.setAttribute('y', imageElement.getAttribute('y')!)
-
-          const imageSrc = imageElement.getAttribute('href')!
-          const imageElementInsideForeignObject = document.createElementNS('http://www.w3.org/2000/svg', 'image')
-          const img = new Image()
-          img.onload = () => {
-            imageElementInsideForeignObject.setAttribute('width', imageElement.getAttribute('width')!)
-            imageElementInsideForeignObject.setAttribute('height', imageElement.getAttribute('height')!)
-            imageElementInsideForeignObject.setAttributeNS('http://www.w3.org/1999/xlink', 'href', imageSrc)
-            imageElementInsideForeignObject.onload = () => {
-              foreignObjectElement.appendChild(imageElementInsideForeignObject)
-              imageElement.parentNode?.replaceChild(foreignObjectElement, imageElement)
-            }
-            const svgDataURL = svg64(svgClone)
-            resolve(svgDataURL)
-          }
-          img.src = imageSrc
-        } else {
-          const svgDataURL = svg64(svgClone)
-          resolve(svgDataURL)
-        }
-      }, 333)
-    })
-  }
   const loadRawData = async (options: QRCodeStylingOptions) => {
     if (onRawData && qrCode) {
-      await qrCode.update(options)
-      if (typeof window !== 'undefined') {
-        // eslint-disable-next-line @typescript-eslint/no-var-requires
-        if (ref.current) {
-          const svg = ref.current.children[0] as SVGElement
-          const newRawData = await updateForeignObjects(svg)
-          onRawData(newRawData)
-        }
-      }
+      qrCode.update(options)
+      const rawData = await qrCode.getRawData('png')
+      onRawData(rawData)
+      setTimeout(async () => {
+        //dumb but had to do it
+        qrCode.update(options)
+        const rawData = await qrCode.getRawData('png')
+        onRawData(rawData)
+      }, 300)
     }
   }
   useEffect(() => {
